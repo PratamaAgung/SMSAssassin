@@ -1,7 +1,7 @@
 package com.company;
 
 import weka.classifiers.Evaluation;
-import weka.classifiers.bayes.NaiveBayes;
+import weka.classifiers.bayes.NaiveBayesMultinomial;
 import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Instances;
 import weka.filters.unsupervised.attribute.StringToWordVector;
@@ -53,7 +53,7 @@ public class Learner {
 
             classifier = new FilteredClassifier();
             classifier.setFilter(filter);
-            classifier.setClassifier(new NaiveBayes());
+            classifier.setClassifier(new NaiveBayesMultinomial());
             Evaluation eval = new Evaluation(trainData);
             eval.crossValidateModel(classifier, trainData, 2, new Random(1));
             System.out.println("===== Evaluating on filtered (training) dataset done =====");
@@ -72,7 +72,7 @@ public class Learner {
             filter = new StringToWordVector();
             classifier = new FilteredClassifier();
             classifier.setFilter(filter);
-            classifier.setClassifier(new NaiveBayes());
+            classifier.setClassifier(new NaiveBayesMultinomial());
             classifier.buildClassifier(trainData);
             // Uncomment to see the classifier
             // System.out.println(classifier);

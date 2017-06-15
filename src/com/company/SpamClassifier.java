@@ -7,10 +7,6 @@ import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * Created by Pratama Agung on 6/15/2017.
  */
@@ -58,9 +54,19 @@ public class SpamClassifier {
      */
     public void classify(Classifier classifier) {
         try {
-            double pred = classifier.classifyInstance(instances.instance(0));
+            double[] pred = classifier.distributionForInstance(instances.instance(0));
             System.out.println("===== Classified instance =====");
-            System.out.println("Class predicted: " + instances.classAttribute().value((int) pred));
+            String result;
+            if (pred[0] > pred [1]){
+                if (pred[0] > 0.5) {
+                    result = "spam";
+                } else {
+                    result = "not_spam";
+                }
+            } else {
+                result = "not_spam";
+            }
+            System.out.println("Class predicted: " + result);
         }
         catch (Exception e) {
             e.printStackTrace();

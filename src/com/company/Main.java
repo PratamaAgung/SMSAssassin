@@ -8,7 +8,7 @@ public class Main {
     public static String getSMS(){
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Enter yout message:");
+            System.out.println("Enter your message:");
             return reader.readLine();
         }
         catch (IOException e){

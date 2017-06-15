@@ -1,0 +1,7 @@
+@relation pima_diabetes
+@attribute class { spam, not_spam}
+@attribute message string
+
+@data
+spam, 'mama minta pulsa'
+not_spam, 'agung'

@@ -58,15 +58,11 @@ public class SpamClassifier {
             System.out.println("===== Classified instance =====");
             String result;
             if (pred[0] > pred [1]){
-                if (pred[0] > 0.5) {
-                    result = "spam";
-                } else {
-                    result = "not_spam";
-                }
+                result = "spam";
             } else {
                 result = "not_spam";
             }
-            System.out.println("Class predicted: " + result);
+            System.out.println("Message predicted as: " + result);
         }
         catch (Exception e) {
             e.printStackTrace();

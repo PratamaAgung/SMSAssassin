@@ -8,7 +8,7 @@ public class Controller {
      */
     public Controller(){
         learner = new Learner();
-        learner.loadDataset("data/spam_training.arff");
+        learner.loadDataset("src/data/spam_training.arff");
         learner.evaluate();
         learner.learn();
     }

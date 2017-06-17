@@ -1,7 +1,6 @@
 package com.company;
 
 import weka.classifiers.Classifier;
-import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -53,7 +52,7 @@ public class SpamClassifier {
     public int classify(Classifier classifier) {
         try {
             double[] pred = classifier.distributionForInstance(instances.instance(0));
-            System.out.println("Message clasified");
+            System.out.println("Message classified");
             int result;
             if (pred[0] > pred [1]){
                 if (pred[0] > 0.75){

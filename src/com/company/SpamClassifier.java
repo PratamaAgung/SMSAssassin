@@ -26,46 +26,53 @@ public class SpamClassifier {
      * Method to make instance of the message
      */
     public void makeInstance() {
-        // Create the attributes, class and text
+
         FastVector fvNominalVal = new FastVector(2);
         fvNominalVal.addElement("spam");
         fvNominalVal.addElement("not_spam");
         Attribute attribute1 = new Attribute("class", fvNominalVal);
         Attribute attribute2 = new Attribute("text",(FastVector) null);
-        // Create list of instances with one element
+
         FastVector fvWekaAttributes = new FastVector(2);
         fvWekaAttributes.addElement(attribute1);
         fvWekaAttributes.addElement(attribute2);
         instances = new Instances("Test relation", fvWekaAttributes, 1);
-        // Set class index
         instances.setClassIndex(0);
-        // Create and add the instance
+
         Instance instance = new Instance(2);
         instance.setValue(attribute2, message);
-        // Another way to do it:
-        // instance.setValue((Attribute)fvWekaAttributes.elementAt(1), text);
+
         instances.add(instance);
-        System.out.println("===== Instance created with reference dataset =====");
+        System.out.println("Instance created");
     }
 
     /**
      * Method to classify the message
      * @param classifier result of learning from data set
      */
-    public void classify(Classifier classifier) {
+    public int classify(Classifier classifier) {
         try {
             double[] pred = classifier.distributionForInstance(instances.instance(0));
-            System.out.println("===== Classified instance =====");
-            String result;
+            System.out.println("Message clasified");
+            int result;
             if (pred[0] > pred [1]){
-                result = "spam";
+                if (pred[0] > 0.75){
+                    result = 0;
+                } else {
+                    result = 1;
+                }
             } else {
-                result = "not_spam";
+                if (pred[1] > 0.75) {
+                    result = 4;
+                } else {
+                    result = 3;
+                }
             }
-            System.out.println("Message predicted as: " + result);
+            return result;
         }
         catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
     }
 }

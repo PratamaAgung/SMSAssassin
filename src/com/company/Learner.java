@@ -35,7 +35,7 @@ public class Learner {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             trainData = new Instances(reader);
-            System.out.println("===== Loaded dataset: " + fileName + " =====");
+            System.out.println("Loaded dataset: " + fileName);
             reader.close();
         }
         catch (IOException e) {
@@ -56,7 +56,7 @@ public class Learner {
             classifier.setClassifier(new NaiveBayesMultinomial());
             Evaluation eval = new Evaluation(trainData);
             eval.crossValidateModel(classifier, trainData, 2, new Random(1));
-            System.out.println("===== Evaluating on filtered (training) dataset done =====");
+            System.out.println("Evaluating dataset done");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -74,9 +74,8 @@ public class Learner {
             classifier.setFilter(filter);
             classifier.setClassifier(new NaiveBayesMultinomial());
             classifier.buildClassifier(trainData);
-            // Uncomment to see the classifier
-            // System.out.println(classifier);
-            System.out.println("===== Training on filtered (training) dataset done =====");
+
+            System.out.println("Training dataset done");
         }
         catch (Exception e) {
             e.printStackTrace();

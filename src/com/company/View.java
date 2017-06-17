@@ -1,0 +1,90 @@
+package com.company;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+/**
+ * Created by Pratama Agung on 6/17/2017.
+ */
+public class View {
+        private JFrame mainFrame;
+        private JLabel headerLabel;
+        private JLabel statusLabel;
+        private JPanel controlPanel;
+        private Controller testController;
+        ImageIcon spam;
+        ImageIcon not_spam;
+
+        public View(){
+            prepareGUI();
+            testController = new Controller();
+            not_spam = new ImageIcon("data/img/no_spam.png");
+            spam = new ImageIcon(("data/img/spam.jpg"));
+        }
+        public static void main(String[] args){
+            View swingControlDemo = new View();
+            swingControlDemo.showTextAreaDemo();
+        }
+        private void prepareGUI(){
+            mainFrame = new JFrame("SMSAssassin");
+            mainFrame.setSize(600,600);
+            mainFrame.setLayout(new GridLayout(3, 1));
+            mainFrame.getContentPane().setBackground(Color.WHITE);
+
+            mainFrame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent windowEvent){
+                    System.exit(0);
+                }
+            });
+            headerLabel = new JLabel("", JLabel.CENTER);
+            statusLabel = new JLabel("",JLabel.CENTER);
+            statusLabel.setSize(350,100);
+
+            controlPanel = new JPanel();
+            controlPanel.setLayout(new GridLayout(3,1,10,10));
+            controlPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
+            controlPanel.setBackground(Color.WHITE);
+
+            mainFrame.add(headerLabel);
+            mainFrame.add(controlPanel);
+            mainFrame.add(statusLabel);
+            mainFrame.setVisible(true);
+        }
+        private void showTextAreaDemo() {
+            headerLabel.setText("SMSAssassin");
+            headerLabel.setFont(headerLabel.getFont().deriveFont(30.0f));
+            ImageIcon smsIcon = new ImageIcon("data/img/spamassassinlogo.png");
+            headerLabel.setIcon(smsIcon);
+
+            JLabel commentlabel = new JLabel("Message: ", JLabel.CENTER);
+
+            final JTextArea messageTextAres  = new JTextArea("", 5, 20);
+            JScrollPane scrollPane = new JScrollPane(messageTextAres);
+            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+            JButton testButton = new JButton("Test");
+            testButton.setSize(10,10);
+            testButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    int res = testController.test(messageTextAres.getText());
+                    if (res == 0){
+                        statusLabel.setText("I'm sure it's a spam");
+                        statusLabel.setIcon(spam);
+                    } else if (res == 1) {
+                        statusLabel.setText("It's likely to be a spam");
+                        statusLabel.setIcon(spam);
+                    } else if (res == 2) {
+                        statusLabel.setText("It's not likely to be a spam");
+                        statusLabel.setIcon(not_spam);
+                    } else {
+                        statusLabel.setText("I'm sure it is not a spam");
+                        statusLabel.setIcon(not_spam);
+                    }
+                }
+            });
+            controlPanel.add(commentlabel);
+            controlPanel.add(scrollPane);
+            controlPanel.add(testButton);
+
+            mainFrame.setVisible(true);
+        }
+}

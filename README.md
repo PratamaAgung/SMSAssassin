@@ -10,6 +10,3 @@ Developed using IntelliJ IDEA Community 2017.
 Data set can be found in folder `data/`.
 This data training is in Indonesian.
 
-## Special Thanks
-To Iftitakhul Zakiah for her awesome inspiration.
-
